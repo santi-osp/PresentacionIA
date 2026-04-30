@@ -20,6 +20,8 @@ import {
   ArrowRight,
   ExternalLink
 } from 'lucide-react';
+import historiasImage from './historias.png';
+import opendayImage from './openday.png';
 
 // Types
 type ProjectType = 'Automatización' | 'Análisis' | 'Optimización';
@@ -49,7 +51,7 @@ const PROJECTS: Project[] = [
     impact: "Ahorro significativo de tiempo y estandarización en la documentación funcional de la empresa.",
     icon: <FileText className="w-12 h-12 text-blue-600" />,
     url: "https://sdipapwbhiaprbs.azurewebsites.net/",
-    imageUrl: "/src/historias.png"
+    imageUrl: historiasImage
   },
   {
     id: 2,
@@ -61,7 +63,7 @@ const PROJECTS: Project[] = [
     impact: "Mejor preparación para procesos de selección y una experiencia de usuario innovadora y útil para los estudiantes.",
     icon: <Users className="w-12 h-12 text-emerald-600" />,
     url: "https://santi-osp.github.io/OpenDayHojasDeVida/",
-    imageUrl: "/src/openday.png"
+    imageUrl: opendayImage
   },
   {
     id: 3,
