@@ -72,7 +72,7 @@ const PROJECTS: Project[] = [
     need: "Eliminar la fuente AS400 (en desuso) del cargue canónico, manteniendo únicamente SAP como fuente de información.",
     how: "Uso de Copilot para modificar Procedimientos Almacenados (SP), eliminando lógica obsoleta y reestructurando el proceso hacia SAP.",
     time: "2 días",
-    impact: "En el ambiende de PRBS se redujo el tiempo de cargue de 30 a 15 minutos, duplicando la eficiencia del proceso operativo.",
+    impact: "En el ambiente de PRBS se redujo el tiempo de cargue de 30 a 15 minutos, duplicando la eficiencia del proceso operativo.",
     icon: <Database className="w-12 h-12 text-amber-600" />
   }
 ];
