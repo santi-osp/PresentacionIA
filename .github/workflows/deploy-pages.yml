@@ -28,41 +28,22 @@ jobs:
         with:
           node-version: 22
 
-      - name: Validate Pages configuration
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PAGES_TOKEN: ${{ secrets.PAGES_TOKEN }}
-        run: |
-          status_code="$(curl -sS -o /tmp/pages.json -w '%{http_code}' \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages")"
-
-          if [[ "${status_code}" == "404" && -z "${PAGES_TOKEN}" ]]; then
-            echo "::error::GitHub Pages is not enabled for this repository. Enable Pages with GitHub Actions once, or add a PAGES_TOKEN secret with permission to enable Pages."
-            exit 1
-          fi
-
-          if [[ "${status_code}" != "200" && "${status_code}" != "404" ]]; then
-            echo "::error::Unable to validate GitHub Pages configuration. GitHub API returned HTTP ${status_code}."
-            cat /tmp/pages.json
-            exit 1
-          fi
-
       - name: Setup Pages
-        id: pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
-          token: ${{ secrets.PAGES_TOKEN || github.token }}
 
       - name: Install dependencies
         run: npm install
 
+      - name: Configure Vite base path
+        run: |
+          REPOSITORY_NAME="${GITHUB_REPOSITORY#*/}"
+          if [[ "$REPOSITORY_NAME" == *.github.io ]]; then
+            echo "BASE_PATH=/" >> "$GITHUB_ENV"
+          else
+            echo "BASE_PATH=/$REPOSITORY_NAME/" >> "$GITHUB_ENV"
+          fi
+
       - name: Build
-        env:
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
         run: npm run build
 
       - name: Upload artifact
